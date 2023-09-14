@@ -5,6 +5,7 @@ const User = require("./models/User");
 const bcrypt = require("bcryptjs");
 const app = express();
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 
@@ -13,11 +14,13 @@ const secret = "asdkmvcsdkdsffdsfd";
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json()); // To parse json body data
+app.use(cookieParser());
 
 mongoose.connect(
   "mongodb+srv://blog:vhziGm6G2wOpqVve@cluster0.g6jp04k.mongodb.net/?retryWrites=true&w=majority"
 );
 
+// Register user
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -32,6 +35,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
+// Login user
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const userDoc = await User.findOne({ username });
@@ -41,11 +45,28 @@ app.post("/login", async (req, res) => {
     // User is logged in
     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
       if (err) throw err;
-      res.cookie("token", token).json("ok");
+      res.cookie("token", token).json({
+        id: userDoc._id,
+        username,
+      });
     });
   } else {
     res.status(400).json("Wrong credentials");
   }
+});
+
+// Profile - user is logged in
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, (err, info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+});
+
+// Logout
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json("ok");
 });
 
 app.listen(4000);
