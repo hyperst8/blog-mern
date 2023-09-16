@@ -74,6 +74,11 @@ form.register {
   margin: 0 auto;
 }
 
+form.login h1,
+form.register h1 {
+  text-align: center;
+}
+
 input {
   display: block;
   margin-bottom: 5px;
