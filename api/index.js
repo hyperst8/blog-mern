@@ -98,7 +98,7 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   });
 });
 
-// Get post
+// Get posts
 app.get("/post", async (req, res) => {
   res.json(
     await Post.find()
@@ -106,6 +106,15 @@ app.get("/post", async (req, res) => {
       .sort({ createdAt: -1 })
       .limit(20)
   );
+});
+
+// Get single post
+app.get("/post/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const postDoc = await Post.findById(id).populate("author", ["username"]);
+
+  res.json(postDoc);
 });
 
 app.listen(4000);
