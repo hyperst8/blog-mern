@@ -16,7 +16,7 @@ const PostPage = () => {
     });
   }, []);
 
-  if (!postInfo) return <div>Something is wrong</div>;
+  if (!postInfo) return <div>Loading...</div>;
 
   return (
     <div className="post-page">
