@@ -167,3 +167,25 @@ div.post-page a.edit-btn {
 a svg {
   height: 20px;
 }
+
+div.message-box {
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 10px 0;
+  margin-block: 8px;
+}
+
+div.message-box p {
+  margin: 0;
+  padding: 0;
+}
+
+.success {
+  background-color: rgb(97, 228, 80) !important;
+}
+
+.failed {
+  background-color: rgb(201, 75, 75) !important;
+}
