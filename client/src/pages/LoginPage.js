@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import Message from "../components/Message";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const [message, setMessage] = useState("");
   const { setUserInfo } = useContext(UserContext);
 
   const login = async (ev) => {
@@ -21,10 +24,17 @@ const LoginPage = () => {
     if (response.ok) {
       response.json().then((userInfo) => {
         setUserInfo(userInfo);
-        setRedirect(true);
+        setMessage("Login successfully");
+        setSuccess(true);
+        setTimeout(() => {
+          setRedirect(true);
+          setMessage("");
+          setSuccess(null);
+        }, 1500);
       });
     } else {
-      alert("Wrong credentials");
+      setMessage("Wrong username or password");
+      setSuccess(false);
     }
   };
 
@@ -48,6 +58,9 @@ const LoginPage = () => {
         onChange={(ev) => setPassword(ev.target.value)}
       />
       <button>Login</button>
+      {message && message !== "" && (
+        <Message success={success} message={message} />
+      )}
     </form>
   );
 };
