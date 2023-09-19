@@ -110,6 +110,11 @@ button {
   padding: 7px 0;
 }
 
+button:disabled {
+  background-color: rgb(102, 102, 102, 0.5);
+  cursor: not-allowed;
+}
+
 div.post-page div.image {
   max-height: 300px;
   display: flex;

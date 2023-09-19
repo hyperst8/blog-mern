@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import Message from "../components/Message";
@@ -9,6 +9,7 @@ const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState("");
+  const [disabledBtn, setDisabledBtn] = useState(false);
   const { setUserInfo } = useContext(UserContext);
 
   const login = async (ev) => {
@@ -38,6 +39,14 @@ const LoginPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (username === "" || password === "") {
+      setDisabledBtn(true);
+    } else {
+      setDisabledBtn(false);
+    }
+  }, [username, password]);
+
   if (redirect) {
     return <Navigate to={"/"} />;
   }
@@ -57,7 +66,7 @@ const LoginPage = () => {
         value={password}
         onChange={(ev) => setPassword(ev.target.value)}
       />
-      <button>Login</button>
+      <button disabled={disabledBtn}>Login</button>
       {message && message !== "" && (
         <Message success={success} message={message} />
       )}
