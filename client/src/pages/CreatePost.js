@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { Navigate } from "react-router-dom";
-import Editor from "../Editor";
+import Editor from "../../src/components/Editor";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
