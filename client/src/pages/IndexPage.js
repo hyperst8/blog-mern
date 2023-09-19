@@ -14,12 +14,17 @@ const IndexPage = () => {
 
   return (
     <div>
-      {posts.length > 0 &&
+      {posts.length > 0 ? (
         posts.map((post) => (
           <div key={post._id}>
             <Post {...post} />
           </div>
-        ))}
+        ))
+      ) : (
+        <div>
+          <p>No post has been published yet.</p>
+        </div>
+      )}
     </div>
   );
 };
