@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [redirect, setRedirect] = useState(false);
   const [success, setSuccess] = useState(null);
   const [message, setMessage] = useState("");
-  const [disabledBtn, setDisabledBtn] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(true);
   const { setUserInfo } = useContext(UserContext);
 
   const login = async (ev) => {
