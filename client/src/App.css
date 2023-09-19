@@ -195,3 +195,7 @@ div.message-box p {
 .failed {
   background-color: rgb(201, 75, 75) !important;
 }
+
+.ql-editor {
+  min-height: 25vh;
+}
